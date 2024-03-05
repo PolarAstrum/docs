@@ -6,8 +6,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-    title: 'Purtmars Plugins',
-    url: 'https://github.com/bkm016',
+    title: 'SummerIceBear Plugins',
+    url: 'https://github.com/MCStarrySky',
     baseUrl: '/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
@@ -47,7 +47,7 @@ const config = {
         ({
             navbar: {
                 hideOnScroll: false,
-                title: 'Purtmars Plugins',
+                title: 'SummerIceBear Plugins',
                 logo: {
                     src: 'img/icon.png',
                 },
