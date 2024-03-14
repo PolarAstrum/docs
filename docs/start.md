@@ -7,7 +7,7 @@ slug: /
 
 你好，欢迎来到 SummerIceBear Plugins。
 
-![](/img/logo.png)
+![](/img/icon.png)
 
 ---
 

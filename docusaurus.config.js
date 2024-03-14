@@ -54,7 +54,7 @@ const config = {
                 items: [],
             },
             footer: {
-                copyright: `Copyright © 2015 ~ ${new Date().getFullYear()} <b style="color: #0180c4">Purtmars Software</b> All Rights Reserved.`,
+                copyright: `Copyright © 2022 ~ ${new Date().getFullYear()} <b style="color: #0180c4">SummerIceBear Software</b> All Rights Reserved.`,
             },
             prism: {
                 theme: lightCodeTheme,
