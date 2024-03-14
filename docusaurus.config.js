@@ -45,6 +45,11 @@ const config = {
     ],
     themeConfig:
         ({
+            colorMode: {
+                defaultMode: 'dark',
+                disableSwitch: true,
+                respectPrefersColorScheme: false,
+            },
             navbar: {
                 hideOnScroll: false,
                 title: 'SummerIceBear Plugins',
