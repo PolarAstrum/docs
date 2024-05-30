@@ -1,0 +1,62 @@
+---
+sidebar_position: 2
+title: 伤害修正-插件简介
+---
+
+## config.yml 总配置
+### 校验模块
+:::info
+
+仅需在`cdkey`后填入购买插件所获得的插件序列码即可使用。
+
+:::
+```yaml
+#插件序列码
+cdkey: "序列码"
+
+#验证库信息，勿改
+captcha:
+  ip: "43.248.186.83"
+  port: 20001
+```
+### 伤害机制修正
+```
+modifier:
+```
+#### 最终伤害限制
+:::info
+
+若启用该设置，插件将会针对范围外的伤害进行修正。
+
+:::
+```yaml
+  damage:
+    enable: false
+    max: 15
+    min: 0.5
+```
+#### 附魔增伤机制修正
+:::info
+
+部分附魔所产生的增伤效果有破坏服务器平衡性的可能。对于该类附魔可在此进行其增伤机制的修正。
+
+:::
+
+:::note
+
+> 伤害修正表达式中，可以使用如下变量：<br/>
+> `damage`，原始伤害<br/>
+> `level`，附魔等级
+
+:::
+```yaml
+  enchants:
+    enable: true
+    modifiers: #格式 - "<附魔英文名>:<伤害修正表达式>"
+      - "damage_all:damage+0.5*level"
+      - "damage_undead:damage+2.5*level"
+      - "damage_arthropods:damage+2.5*level"
+      - "power:damage+0.5*level"
+      - "impaling:damage+2.5*level"
+      - "protection_environment:damage-0.5*level"
+      - "protection_projectile:damage-0.75*level"
