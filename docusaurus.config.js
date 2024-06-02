@@ -46,7 +46,7 @@ const config = {
     themeConfig:
         ({
             colorMode: {
-                defaultMode: 'light',
+                defaultMode: 'dark',
                 disableSwitch: true,
                 respectPrefersColorScheme: false,
             },
