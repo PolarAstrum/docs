@@ -2,3 +2,183 @@
 sidebar_position: 1
 title: config.yml - 总设置
 ---
+
+# Config.yml - 总设置
+## 校验模块
+:::info
+
+仅需在`cdkey`后填入购买插件所获得的插件序列码即可使用。
+
+:::
+
+:::caution
+
+未经授权情况下，**不要修改**`captcha`下有关内容，否则会影响验证。
+
+:::
+
+```yaml
+#插件序列码
+cdkey: "序列码"
+
+#验证库信息，勿改
+captcha:
+  ip: "43.248.186.83"
+  port: 20001
+```
+## 语言文件配置
+:::info
+
+暂无需改动。
+
+:::
+```yaml
+#语言文件
+language: zh_cn.yml
+```
+## 覆盖配置设定
+:::info
+
+可在此处进行有关机制的修正，以解决有关限制与冲突。
+
+:::
+```yaml
+#是否可突破原来的最高等级（强化上限在下方设置）
+override-maxLevel: true
+#是否可突破原版冲突
+override-vanilla-conflicts: true
+#是否可以突破原版物品类型判定
+override-vanilla-targets: false
+#是否可以突破 NereusOpus 提供的一系列限制（如附魔种类上限）
+override-nereusopus: false
+```
+## 强化上限设定
+:::info
+
+在此处设定有关可加入强化机制的附魔。按照格式和最高等级填入即可。
+
+:::
+```yaml
+#强化上限（未设置则默认为原版最高级）
+maxLevel:
+  #格式
+  #附魔: 最高级
+  锋利: 1000
+  #请继续添加
+```
+## 反噬机制配置
+:::info
+
+在本插件所提供的强化机制中，存在一定失败概率。在此情形下，玩家装备会遭到反噬惩罚，具体分为直接破碎和对应附魔降级两种情形，可供服务器管理员根据实际情况自由配置。
+
+:::
+```yaml
+#反噬惩罚
+failed-punishment:
+  #破碎
+  break:
+    enable: false
+  #降级（在破碎为false时生效）
+  decrease:
+    enable: true
+    #降多少级（random表示0-1的随机小数，计算后向下取整）
+    level: 1+9*random
+```
+## 强化成功公告机制设定
+:::info
+
+在强化达到一定等级时，所耗费的资源相对较多，通过该机制可强化获得感。<br/>
+在`text`中，可使用如下PAPI变量：<br/>
+`%player%`：玩家名；<br/>
+`%enchant%`：附魔名；<br/>
+`%old-roman%`：该附魔强化前等级（罗马数字表示）；<br/>
+`%new-roman%`：该附魔强化后等级（罗马数字表示）；
+
+:::
+```yaml
+#强化成功的公告
+broadcast-if-success:
+  #bossbar信息
+  broadcast:
+    #是否启用
+    enable: true
+    #能触发boss信息的最低强化等级，maxLevel表示强化上限（见上文“强化上限设定”）
+    min-level: 0.01*maxLevel
+    text: "§7恭喜玩家 §e%player% §7成功强化装备附魔: §8%enchant% %old-roman% §7→ §b%enchant% %new-roman%"
+  bossbar:
+    enable: true
+    min-level: 0.1*maxLevel
+    text: "§7恭喜玩家 §e%player% §7成功强化装备附魔: §8%enchant% %old-roman% §7→ §b%enchant% %new-roman%"
+```
+## 强化额外消耗货币设定
+:::info
+
+对于不同等级附魔的强化，所消耗的不同货币均可在此设定。<br/>
+其中，`Vault`和`PlayerPoints`需有关前置插件支持才可投入运用。<br/>
+`amount`公式中，可根据有关参数进行最终货币消耗量的计算：<br/>
+`currentLevel`：强化前等级；<br/>
+`maxLevel`：该附魔强化上限；<br/>
+`intensifyLevel`：该次强化增加等级；
+
+:::
+```yaml
+#额外消耗货币
+extra-expense:
+  #游戏币
+  vault:
+    #是否启用
+    enable: true
+    amount: 10000*(currentLevel/maxLevel)*intensifyLevel
+  #点券
+  playerpoints:
+    #是否启用
+    enable: false
+    amount: 100*(currentLevel/maxLevel)*intensifyLevel
+  #经验等级
+  exp-level:
+    #是否启用
+    enable: false
+    amount: 30*(currentLevel/maxLevel)*intensifyLevel
+```
+## 强化DNF机制设定
+:::info
+
+该处设定提供了类似DNF的额外强化限制机制：**在进行具有更高基础等级的附魔强化时，额外降低成功率、提高失败概率**。<br/>
+amount中可设定有关计算公式，其中参数如下：<br/>
+`currentLevel`：该附魔当前等级；<br/>
+`maxLevel`表情强化上限；
+
+:::
+```yaml
+#DNF机制，附魔等级越高，强化越困难
+dnf:
+  #成功率额外降低
+  success-rate:
+    #是否启用
+    enable: true
+    amount: 20*(currentLevel/maxLevel)
+  #反噬率额外升高
+  fail-rate:
+    #是否启用
+    enable: false
+    amount: 20*(currentLevel/maxLevel)
+```
+## 强化特权设定
+:::info
+
+对于不同类别玩家，可通过此处设定有关权限，并在权限插件中将此处权限赋予有关权限组，即可**使玩家获得额外的成功率加成与反噬率减免**。
+
+:::
+```yaml
+#特权
+#添加格式：
+# "权限|表达式"
+#表达式格式：
+#sr:<数字> 成功率添加多少
+#fr:<数字> 反噬率降低多少
+privileges:
+  - "enchantintensifier.sr.5|sr:5"
+  - "enchantintensifier.sr.10|sr:10"
+  - "enchantintensifier.fr.5|fr:5"
+  - "enchantintensifier.fr.10|fr:10"
+```

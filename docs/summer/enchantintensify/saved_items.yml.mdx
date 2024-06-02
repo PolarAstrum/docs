@@ -2,3 +2,221 @@
 sidebar_position: 5
 title: saved_items.yml - 增益道具设置
 ---
+
+# saved_items.yml - 增益道具配置
+:::info
+
+对于此处已设定的道具，可提供给玩家在强化时获得各类增幅效果。<br/>
+每种类型道具均已提供样例，可直接使用，亦可自定义修改有关参数和lore。
+
+:::
+
+# 通用配置
+:::info
+
+每个道具均以内部存储名开始编写，含如下参数：<br/>
+`name`：显示名称；<br/>
+`type`：物品类型；<br/>
+`lore`：物品Lore显示内容，支持多行，部分道具支持变量替换；<br/>
+`intensify`：道具参数。各种道具具有不同参数，可在此项下配置。
+
+:::
+
+:::caution
+
+对于Lore配置的建议：请在编辑文件后确认`Lore`**中描述和**`intensify`**下有关参数相符**。
+
+:::
+
+## 自定义附魔强化书
+:::info
+
+**intensify参数如下：**<br/>
+`enchant` 对应附魔；<br/>
+`level` 强化等级；<br/>
+`successful-rate` 成功率；<br/>
+`fail-rate` 失败概率。<br/>
+
+:::
+
+:::tip
+
+Lore支持变量：<br/>
+`<enchant>` 附魔名称；<br/>
+`<level>` 强化等级；<br/>
+`<successful-rate>` 成功率；<br/>
+`<failed-rate>` 失败概率。
+
+:::
+
+```yaml
+锋利强化书:
+  name: "&b锋利强化书"
+  type: BOOK
+  lore:
+    - "&8| &7在强化台内使用化书"
+    - "&8| &7使武器的对应附魔强化升级"
+    - "&7----------------------------"
+    - "&8| &7强化附魔: &b<enchant>"
+    - "&8| &7叠加等级: &e<level>级"
+    - "&7----------------------------"
+    - "&8| &7成功率: &a<successful-rate>%"
+    - "&8| &7反噬率: &c<failed-rate>%"
+  intensify:
+    enchant: 锋利
+    level: 1+3*random
+    successful-rate: 100*random
+    fail-rate: 100*random
+```
+## 自定义附魔条数增加
+:::info
+
+**intensify参数如下：**<br/>
+`extra` 增加条数。
+
+:::
+
+:::tip
+
+Lore支持变量：<br/>
+`<extra>` 增加条数。
+
+:::
+```yaml
+附魔词条强化书:
+  name: "&b附魔词条强化书"
+  type: EMERALD
+  lore:
+    - "&8| &7在强化台内使用附魔词条强化书"
+    - "&8| &7使装备的附魔词条上限增加"
+    - "&7----------------------------"
+    - "&8| &7附魔词条数 &e+<extra>"
+  intensify:
+    extra: 1
+```
+## 强化成功率增益、失败率降低
+:::caution
+
+该类道具配置的Lore中不支持PAPI变量替换，请自行设定Lore和参数一致。
+
+:::
+
+:::info
+
+**intensify参数如下：**<br/>
+`sr-adapt` 成功率计算公式。
+
+:::
+
+```yaml
+低级幸运石:
+  name: "&b低级幸运石"
+  type: EMERALD
+  lore:
+    - "&8| &7在强化台内使用幸运石"
+    - "&8| &7使强化成功率提升"
+    - "&7----------------------------"
+    - "&8| &7强化成功率 &e+5%"
+  intensify:
+    sr-adapt: sr+5
+```
+
+---
+
+```yaml
+高级幸运石:
+  name: "&b高级幸运石"
+  type: EMERALD
+  lore:
+    - "&8| &7在强化台内使用幸运石"
+    - "&8| &7使强化成功率提升"
+    - "&7----------------------------"
+    - "&8| &7强化成功率 &e×110%"
+  intensify:
+    sr-adapt: sr*1.1
+```
+
+:::info
+**intensify参数如下：**<br/>
+`fr-adapt` 失败概率计算公式。
+
+:::
+
+```yaml
+低级辟邪石:
+  name: "&b低级辟邪石"
+  type: COAL
+  lore:
+    - "&8| &7在强化台内使用辟邪石"
+    - "&8| &7使强化反噬率降低"
+    - "&7----------------------------"
+    - "&8| &7强化成功率 &e-5%"
+  intensify:
+    fr-adapt: fr-5
+```
+
+---
+
+```yaml
+高级辟邪石:
+  name: "&b高级辟邪石"
+  type: COAL
+  lore:
+    - "&8| &7在强化台内使用辟邪石"
+    - "&8| &7使强化反噬率降低"
+    - "&7----------------------------"
+    - "&8| &7强化成功率 &e×90%"
+  intensify:
+    fr-adapt: fr*0.9
+```
+## 强化等级增益
+:::caution
+
+该类道具配置的Lore中不支持PAPI变量替换，请自行设定Lore和参数统一。
+
+:::
+
+:::info
+
+**intensify参数如下：**<br/>
+`level-adapt` 强化等级提升。
+
+:::
+```yaml
+增幅石:
+  name: "&b增幅石"
+  type: DIAMOND
+  lore:
+    - "&8| &7在强化台内使用增幅石"
+    - "&8| &7使强化等级提升"
+    - "&7----------------------------"
+    - "&8| &7强化升级 &e+1"
+  intensify:
+    level-adapt: level+1
+```
+## 强化成本修改
+:::caution
+
+该类道具配置的Lore中不支持PAPI变量替换，请自行设定Lore和参数统一。
+
+:::
+
+:::info
+
+**intensify参数如下：**<br/>
+`cost-adapt` 强化所需货币计算公式。
+
+:::
+
+```yaml
+等价券:
+  name: "&b等价券"
+  type: IRON_INGOT
+  lore:
+    - "&8| &7在强化台内使用等价券"
+    - "&8| &7使额外消耗的货币减少"
+    - "&7----------------------------"
+    - "&8| &7额外消耗货币 &e-10%"
+  intensify:
+    cost-adapt: cost*0.9
+```
