@@ -1,0 +1,166 @@
+---
+sidebar_position: 1
+title: 附魔分离 - 配置
+---
+
+# EnchantSeparator - 配置文件
+## 插件验证设定
+```yaml
+#插件序列码
+cdkey: ""
+
+#验证库信息，勿改
+captcha:
+  ip: "43.248.186.83"
+  port: 20001
+```
+
+:::info
+
+填写校验码即可，其余信息不需要改动。
+
+:::
+
+## 语言文件设定
+```yaml
+#语言文件
+language: zh_cn.yml
+```
+:::info
+
+设置插件所使用的语言文件。
+
+:::
+
+:::caution
+
+目前，EnchantSeparator仅支持`zh_cn`简体中文语言。
+
+:::
+
+## 附魔解析设定
+:::info
+
+在玩家对所需卸魔的物品放入GUI界面后，EnchantSeparator将会按照下列规则（按照等级稀有度排序，顺序/逆序）进行排列解析。
+
+:::
+
+:::info
+
+在`amount`下，可设定对某物品解析附魔的限制范围，对卸魔加以一定限制，预防通过卸魔以较低成本获得高价值武器。
+
+:::
+
+:::caution
+
+按照稀有度排序需要前置附魔插件[NereusOpus](/summer/nereusopus/)。
+
+:::
+
+```yaml
+#解析相关设置
+analyze:
+  #每次解析物品的前几个附魔（只有解析到的附魔可以卸魔）
+  amount: 1
+  #解析顺序
+  rule:
+    #按照等级排序
+    level:
+      #是否打开
+      enable: true
+      #是否是从低到高
+      from-low: true
+    #按照稀有度排序（需要NereusOpus）
+    rarity:
+      #是否打开
+      enable: false
+```
+## 卸魔设定
+```yaml
+#卸魔相关设定
+deenchant:
+```
+### 成功率和运行机制
+:::info
+
+对于解析出的可卸附魔，可在此设定`successful-rate`表达式确认其不同的卸魔成功率（固定概率亦可，不推荐）。<br/>
+公式中所有概率数**省略百分号**。<br/>
+以默认公式为例：在解析出的附魔列表中，<br/>
+第一附魔卸魔成功率为 90%,<br/>
+第二附魔卸魔成功率为 80%,<br/>
+以此类推。
+
+:::
+
+:::info
+
+对于绝大多数卸魔操作，卸魔后对应附魔等级将被减一级，故`level`一项不应修改。
+
+:::
+
+```yaml
+  #卸魔基本机制
+  mechanisms:
+    #成功率，order代表是一次性解析中的第几个
+    successful-rate: 100-10*(order)
+    #卸魔完毕之后的书本上的对应附魔等级
+    level: level-1
+```
+### 卸魔耗费设定
+:::info
+
+对于卸魔操作所需要的材料可在此设定。
+
+:::
+
+:::info
+
+EnchantSeparator支持使用游戏内经验等级，Vault游戏币，PlayerPoints点券三类货币进行卸魔操作的开销。<br/>
+在各种货币下可设置是否启用（`enable`），具体耗费的计算公式（`cost`）。
+
+:::
+
+
+```yaml
+  #卸魔代价
+  price:
+    #经验等级
+    exp-level:
+      #是否打开
+      enable: false
+      #具体公式，level代表拆卸前等级，maxlevel代表附魔最大级
+      cost: 30*(level/maxlevel)*order
+    #Vault游戏币
+    vault:
+      enable: true
+      cost: 3000*(level/maxlevel)*order
+    #点券
+    playerpoints:
+      enable: false
+      cost: 3000*(level/maxlevel)*order
+```
+### 卸魔特权设定
+:::info
+
+对于卸魔操作中所需授予高权限/特权玩家的权限，可在此集中设置。
+
+:::
+
+```yaml
+  #特权设定
+  privilege:
+    #卸魔后书本附魔的等级维持原等级
+    level: "enchantseparator.level.full"
+    #成功率增幅器，默认的是×110%和×125%
+    successful-rate:
+      - "enchantseparator.rate.110:*1.1"
+      - "enchantseparator.rate.125:*1.25"
+    #附魔代价折扣器，默认的是×90%和×75%
+    discount:
+      - "enchantseparator.discount.90:*0.9"
+      - "enchantseparator.discount.75:*0.75"
+    #一次性更多的解析数量，默认的是+1和+2
+    analyze-amount:
+      - "enchantseparator.analyze.1:+1"
+      - "enchantseparator.analyze.2:+2"
+```
