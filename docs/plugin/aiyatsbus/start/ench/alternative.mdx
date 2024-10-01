@@ -1,0 +1,35 @@
+---
+sidebar_position: 2
+---
+
+# 可选元数据
+
+这部分内容涉及附魔的可选数据，如附魔权重、是否为诅咒、是否为宝藏等。
+
+```yaml
+alternative:
+  grindstoneable: true
+  weight: 100
+  is_cursed: false
+  is_treasure: false
+  is_tradeable: true
+  is_discoverable: true
+  is_vanilla: false
+  trade_max_level: -1
+  enchant_max_level: -1
+  loot_max_level: -1
+```
+
+## 节点介绍
+| 节点            | 描述                       |
+|-----------------|----------------------------|
+| `grindstoneable`        | 是否可被砂轮驱魔                   |
+| `weight`| 附魔获取权重，默认为 `100`           |
+| `is_cursed`            | 是否为诅咒附魔 |
+| `is_treasure`          | 是否为宝藏附魔                    |
+| `is_tradeable`     | 是否可从交易中得到                |
+| `is_discoverable`  | 是否可被发现 ｜
+| `is_vanilla`  | 是否为原版附魔 ｜
+| `trade_max_level`  | 交易获得附魔的等级上限, `-1` 则为该附魔最大等级 ｜
+| `enchant_max_level`  | 从附魔台获得附魔的等级上限, `-1` 则为该附魔最大等级 ｜
+| `loot_max_level`  | 从战利品获得附魔的等级上限, `-1` 则为该附魔最大等级 ｜
