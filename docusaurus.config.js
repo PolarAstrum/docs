@@ -72,7 +72,7 @@ const config = {
 export default {
     stylesheets: [
       {
-        href: '/katex/katex.min.css',
+        href: 'katex/katex.min.css',
         type: 'text/css',
       },
     ],
