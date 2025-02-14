@@ -1,3 +1,3 @@
-# Purtmars Repository
+# PolarAstrum Plugins
 
-阿巴阿巴阿巴
+你好，欢迎来到 PolarAstrum Plugins。
