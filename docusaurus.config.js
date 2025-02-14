@@ -6,8 +6,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-    title: 'SummerIceBear Plugins',
-    url: 'https://github.com/MCStarrySky',
+    title: 'PolarAstrum Plugins',
+    url: 'https://github.com/PolarAstrum',
     baseUrl: '/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
@@ -52,14 +52,14 @@ const config = {
             },
             navbar: {
                 hideOnScroll: false,
-                title: 'SummerIceBear Plugins',
+                title: 'PolarAstrum Plugins',
                 logo: {
                     src: 'img/icon.png',
                 },
                 items: [],
             },
             footer: {
-                copyright: `Copyright © 2022 ~ ${new Date().getFullYear()} <b style="color: #0180c4">SummerIceBear Software</b> All Rights Reserved.`,
+                copyright: `Copyright © 2022 ~ ${new Date().getFullYear()} <b style="color: #0180c4">PolarAstrum Software</b> All Rights Reserved.`,
             },
             prism: {
                 theme: lightCodeTheme,
