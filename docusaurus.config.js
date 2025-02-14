@@ -43,6 +43,12 @@ const config = {
             }),
         ],
     ],
+    stylesheets: [
+        {
+            href: '/katex/katex.min.css',
+            type: 'text/css',
+          },
+    ],
     themeConfig:
         ({
             colorMode: {
@@ -68,14 +74,5 @@ const config = {
             },
         }),
 };
-
-export default {
-    stylesheets: [
-      {
-        href: 'katex/katex.min.css',
-        type: 'text/css',
-      },
-    ],
-  };
 
 module.exports = config;
